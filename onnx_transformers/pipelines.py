@@ -709,7 +709,7 @@ class Pipeline(_ScikitCompat):
         logger.info(f"Saving onnx graph at { self.graph_path.as_posix()}")
 
         if self.framework == "pt":
-            convert_pytorch(self, opset=11, output=self.graph_path, use_external_format=False)
+            convert_pytorch(self, opset=11, output=self.graph_path, use_external_format=True)
         else:
             convert_tensorflow(self, opset=11, output=self.graph_path)
 
