@@ -12,6 +12,11 @@ from os.path import abspath, exists
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, Iterable, List, Optional, Sequence, Tuple, Union
 
+# Constants from the performance optimization available in onnxruntime
+# It needs to be done before importing onnxruntime
+os.environ["OMP_NUM_THREADS"] = str(cpu_count(logical=True))
+os.environ["OMP_WAIT_POLICY"] = "ACTIVE"
+
 import numpy as np
 from onnxruntime import GraphOptimizationLevel, InferenceSession, SessionOptions, get_all_providers
 from psutil import cpu_count
@@ -69,12 +74,6 @@ ONNX_CACHE_DIR = Path(os.path.dirname(__file__)).parent.joinpath(".onnx")
 
 
 logger = logging.get_logger(__name__)
-
-
-# Constants from the performance optimization available in onnxruntime
-# It needs to be done before importing onnxruntime
-os.environ["OMP_NUM_THREADS"] = str(cpu_count(logical=True))
-os.environ["OMP_WAIT_POLICY"] = "ACTIVE"
 
 
 def create_model_for_provider(model_path: str, provider: str) -> InferenceSession:
