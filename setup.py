@@ -23,7 +23,7 @@ setup(
     url="https://github.com/patil-suraj/onnx_transformers",
     install_requires=[
         "transformers>=3.1.0",
-        "onnxruntime-gpu>=1.4.0",
+        "onnxruntime-gpu==1.0.0",
         "onnxruntime-tools>=1.4.2",
         "psutil",
     ],
