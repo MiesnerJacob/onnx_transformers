@@ -1731,19 +1731,19 @@ def pipeline(
     if isinstance(tokenizer, (str, tuple)):
         if isinstance(tokenizer, tuple):
             # For tuple we have (tokenizer name, {kwargs})
-            tokenizer = AutoTokenizer.from_pretrained(tokenizer[0], **tokenizer[1])
+            tokenizer = AutoTokenizer.from_pretrained(tokenizer[0], **tokenizer[1], force_download=True)
         else:
-            tokenizer = AutoTokenizer.from_pretrained(tokenizer)
+            tokenizer = AutoTokenizer.from_pretrained(tokenizer, force_download=True)
 
     # Instantiate config
     if config is not None and isinstance(config, str):
-        config = AutoConfig.from_pretrained(config)
+        config = AutoConfig.from_pretrained(config, force_download=True)
     elif config is None:
-        config = AutoConfig.from_pretrained(model)
+        config = AutoConfig.from_pretrained(model, force_download=True)
 
     # Instantiate modelcard if needed
     if isinstance(modelcard, str):
-        modelcard = ModelCard.from_pretrained(modelcard)
+        modelcard = ModelCard.from_pretrained(modelcard, force_download=True)
 
     # Instantiate model if needed
     graph_name = f"{os.path.basename(model)}.onnx"
@@ -1766,7 +1766,7 @@ def pipeline(
                 "Model might be a PyTorch model (ending with `.bin`) but PyTorch is not available. "
                 "Trying to load the model with Tensorflow."
             )
-        model = model_class.from_pretrained(model, config=config, **model_kwargs)
+        model = model_class.from_pretrained(model, config=config, **model_kwargs, force_download=True)
 
     return task_class(
         model=model,
