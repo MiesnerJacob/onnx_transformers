@@ -11,6 +11,7 @@ from itertools import chain
 from os.path import abspath, exists
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, Iterable, List, Optional, Sequence, Tuple, Union
+from psutil import cpu_count
 
 
 # Constants from the performance optimization available in onnxruntime
@@ -20,7 +21,6 @@ os.environ["OMP_WAIT_POLICY"] = "ACTIVE"
 
 import numpy as np
 from onnxruntime import GraphOptimizationLevel, InferenceSession, SessionOptions, get_all_providers
-from psutil import cpu_count
 from transformers.configuration_auto import AutoConfig
 from transformers.configuration_utils import PretrainedConfig
 from transformers.convert_graph_to_onnx import convert_pytorch, convert_tensorflow, infer_shapes
