@@ -554,6 +554,7 @@ class Pipeline(_ScikitCompat):
 
             logger.info(f"loading onnx graph from {self.graph_path.as_posix()}")
             self.onnx_model = create_model_for_provider(str(graph_path), "CPUExecutionProvider")
+            self.onnx_model = self.onnx_model.to(self.device)
             self.input_names = json.load(open(input_names_path))
             self.framework = "np"
             self._warup_onnx_graph()
